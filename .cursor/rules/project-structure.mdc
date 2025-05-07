@@ -1,0 +1,36 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Python SVG and UML Project Structure
+
+## Core Files
+- [app.py](mdc:app.py): Main application entry point that uses SVG and UML libraries
+- [requirements.txt](mdc:requirements.txt): Python package dependencies including svgwrite and graphviz
+
+## Docker Configuration
+- [Dockerfile](mdc:Dockerfile): Containerization setup using Python 3.9-slim base image
+- [.dockerignore](mdc:.dockerignore): Specifies which files should be excluded from Docker builds
+
+## Dependencies
+The project uses two main libraries:
+1. `svgwrite` (v1.4.3) for SVG creation and manipulation
+2. `graphviz` (v0.20.1) for UML diagram generation
+
+### System Requirements
+The Docker environment automatically installs required system dependencies:
+- Python 3.9
+- Graphviz system package
+
+## Development
+The project can be developed in two ways:
+1. Using Docker (recommended):
+   - Ensures consistent environment
+   - Handles all dependencies automatically
+   - Isolates the application
+
+2. Using local Python virtual environment:
+   - Requires manual installation of system dependencies
+   - Requires manual virtual environment management
+   - Suitable for simple development scenarios
