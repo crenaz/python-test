@@ -1,8 +1,14 @@
 import sys
 import svgwrite
 from graphviz import Digraph
+import os
+from pathlib import Path
 
 def create_svg(filename='static/example.svg'):
+    # Ensure static directory exists
+    static_dir = Path('static')
+    static_dir.mkdir(exist_ok=True)
+    
     # Create a new SVG drawing
     dwg = svgwrite.Drawing(filename, size=('800px', '600px'))
 
@@ -14,15 +20,19 @@ def create_svg(filename='static/example.svg'):
                        fill='#ff6b6b', stroke='#c92a2a', stroke_width=3)
     
     # Add animations directly to the circle
-    circle.add(dwg.animate(attributeName='r',
-                          values='100;120;100',
-                          dur='4s',
-                          repeatCount='indefinite'))
+    circle.add(dwg.animate(
+        attributeName='r',
+        values='100;120;100',
+        dur='4s',
+        repeatCount='indefinite'
+    ))
     
-    circle.add(dwg.animate(attributeName='fill',
-                          values='#ff6b6b;#ffd43b;#69db7c;#ff6b6b',
-                          dur='6s',
-                          repeatCount='indefinite'))
+    circle.add(dwg.animate(
+        attributeName='fill',
+        values='#ff6b6b;#ffd43b;#69db7c;#ff6b6b',
+        dur='6s',
+        repeatCount='indefinite'
+    ))
     dwg.add(circle)
 
     # Rectangle with rotating animation
@@ -34,12 +44,12 @@ def create_svg(filename='static/example.svg'):
     
     # Add rotation animation
     rect.add(dwg.animateTransform(
-        attributeName='transform',
         type='rotate',
         from_='0 300 250',
         to='360 300 250',
         dur='6s',
-        repeatCount='indefinite'
+        repeatCount='indefinite',
+        transform='rotate(0 300 250)'
     ))
     dwg.add(rect)
 
@@ -51,13 +61,13 @@ def create_svg(filename='static/example.svg'):
                           stroke_width=2)
     
     # Add bounce animation
-    triangle.add(dwg.animate(
-        attributeName='transform',
-        attributeType='XML',
+    triangle.add(dwg.animateTransform(
         type='translate',
-        values='0,0; 0,-30; 0,0',
+        from_='0 0',
+        to='0 -30',
         dur='2s',
-        repeatCount='indefinite'
+        repeatCount='indefinite',
+        transform='translate(0 0)'
     ))
     dwg.add(triangle)
 

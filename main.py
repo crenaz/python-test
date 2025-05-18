@@ -25,13 +25,14 @@ async def home(request: Request):
         # Generate new SVG
         svg_file = create_svg()
         if not os.path.exists(svg_file):
-            raise HTTPException(status_code=500, detail="Failed to create SVG file")
+            raise HTTPException(status_code=500, detail=f"Failed to create SVG file at {svg_file}")
         
         return templates.TemplateResponse(
             "index.html",
             {"request": request, "title": "SVG Animation Viewer"}
         )
     except Exception as e:
+        print(f"Error creating SVG: {str(e)}")  # Add debug logging
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/regenerate")
